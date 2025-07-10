@@ -1,7 +1,14 @@
+import 'package:coursera__movie_app/providers/movie_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => MovieProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,18 +36,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _movieList = <String>[
-    "The Shawshank Redemption",
-    "Interstellar",
-    "Inception",
-    "The Godfather",
-    "The Godfather: Part II",
-    "The Pursuit of Happiness",
-    "Into the wild",
-  ];
-
   @override
   Widget build(BuildContext context) {
+    // * load movies from movie provider
+    final movieList = Provider.of<MovieProvider>(context).loadMovies();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -51,9 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ListView.builder(
-              itemCount: _movieList.length,
+              itemCount: movieList.length,
               itemBuilder: (ctx, idx) {
-                final _item = _movieList[idx];
+                final _item = movieList[idx];
                 return ListTile(
                   title: Text(_item),
                   leading: Icon(Icons.movie_rounded),
