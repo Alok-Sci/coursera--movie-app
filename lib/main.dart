@@ -56,7 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 final _item = movieList[idx];
                 return ListTile(
                   title: Text(_item),
-                  leading: Icon(Icons.movie_rounded),
+                  subtitle: Text("Subtitle"),
+                  leading: CircleAvatar(
+                    child: Text(movieList[idx][0])
+                  ),
                   trailing: Icon(Icons.arrow_right_alt_rounded),
                 );
               },
