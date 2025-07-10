@@ -37,9 +37,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    Provider.of<MovieProvider>(context, listen: false).loadMovies(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // * load movies from movie provider
-    final movieList = Provider.of<MovieProvider>(context).loadMovies();
+    final movieList = Provider.of<MovieProvider>(context).movieList;
 
     return Scaffold(
       appBar: AppBar(
@@ -53,12 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ListView.builder(
               itemCount: movieList.length,
               itemBuilder: (ctx, idx) {
-                final _item = movieList[idx];
+                final movie = movieList[idx];
                 return ListTile(
-                  title: Text(_item),
-                  subtitle: Text("Subtitle"),
+                  title: Text(movie.title ?? ""),
+                  subtitle: Text(movie.director ?? ""),
                   leading: CircleAvatar(
-                    child: Text(movieList[idx][0])
+                    child: Text(movie.title?[0] ?? ""),
                   ),
                   trailing: Icon(Icons.arrow_right_alt_rounded),
                 );
