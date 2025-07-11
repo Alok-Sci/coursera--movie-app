@@ -46,32 +46,73 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // * load movies from movie provider
     final movieList = Provider.of<MovieProvider>(context).movieList;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ListView.builder(
-              itemCount: movieList.length,
-              itemBuilder: (ctx, idx) {
-                final movie = movieList[idx];
-                return ListTile(
-                  title: Text(movie.title ?? ""),
-                  subtitle: Text(movie.director ?? ""),
-                  leading: CircleAvatar(
-                    child: Text(movie.title?[0] ?? ""),
+      body: ListView.builder(
+        itemCount: movieList.length,
+        shrinkWrap: true,
+        itemBuilder: (ctx, idx) {
+          final movie = movieList[idx];
+          return Card(
+            child: ExpansionTile(
+              title: Text(movie.title ?? ""),
+              subtitle: Text("Director: ${movie.director}"),
+              leading: CircleAvatar(
+                child: Text(movie.title?[0] ?? ""),
+              ),
+              onExpansionChanged: (isExpanded) {},
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 70),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Release: ${movie.released}",
+                        style: textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      RichText(
+                        softWrap: true,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Plot: ",
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "${movie.plot}",
+                              style: textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: TextButton(
+                          child: Text("Read More"),
+                          onPressed: () {
+                            // navigate to detail screen
+                          },
+                        ),
+                      )
+                    ],
                   ),
-                  trailing: Icon(Icons.arrow_right_alt_rounded),
-                );
-              },
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
