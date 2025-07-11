@@ -1,4 +1,4 @@
-import 'package:coursera__movie_app/pages/movie_details_page.dart';
+import 'package:coursera__movie_app/movie_card.dart';
 import 'package:coursera__movie_app/providers/movie_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,66 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         shrinkWrap: true,
         itemBuilder: (ctx, idx) {
           final movie = movieList[idx];
-          return Card(
-            child: ExpansionTile(
-              title: Text(movie.title ?? ""),
-              subtitle: Text("Director: ${movie.director}"),
-              leading: CircleAvatar(
-                child: Text(movie.title?[0] ?? ""),
-              ),
-              onExpansionChanged: (isExpanded) {},
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 70),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Release: ${movie.released}",
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      RichText(
-                        softWrap: true,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Plot: ",
-                              style: textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            TextSpan(
-                              text: "${movie.plot}",
-                              style: textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: TextButton(
-                          child: Text("Read More"),
-                          onPressed: () {
-                            // Navigate to detail screen
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return MovieDetailsPage(movie: movie);
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
+          return MovieCard(movie: movie);
         },
       ),
     );
