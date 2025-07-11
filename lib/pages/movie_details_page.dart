@@ -19,7 +19,10 @@ class MovieDetailsPage extends StatelessWidget {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MovieCard(movie: movie),
+          MovieCard(
+            movie: movie,
+            isDetails: true,
+          ),
           SizedBox(height: 20),
           Text(
             "Movie Images",
