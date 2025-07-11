@@ -1,4 +1,5 @@
 import 'package:coursera__movie_app/models/movie.dart';
+import 'package:coursera__movie_app/movie_card.dart';
 import 'package:flutter/material.dart';
 
 class MovieDetailsPage extends StatelessWidget {
@@ -13,13 +14,12 @@ class MovieDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(movie.title ?? ""),
+        title: Text("Movie Details"),
       ),
       body: Center(
         child: Column(
           children: [
-            Text("Plot"),
-            Text(movie.plot ?? ""),
+            MovieCard(movie: movie)
           ],
         ),
       ),

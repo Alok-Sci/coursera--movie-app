@@ -1,4 +1,3 @@
-
 import 'package:coursera__movie_app/models/movie.dart';
 import 'package:coursera__movie_app/pages/movie_details_page.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ class MovieCard extends StatelessWidget {
         title: Text(movie.title ?? ""),
         subtitle: Text("Director: ${movie.director}"),
         leading: CircleAvatar(
-          child: Text(movie.title?[0] ?? ""),
+          backgroundImage: NetworkImage(movie.images?.first ?? ""),
         ),
         onExpansionChanged: (isExpanded) {},
         children: [
