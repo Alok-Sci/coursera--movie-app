@@ -16,12 +16,36 @@ class MovieDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Movie Details"),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            MovieCard(movie: movie)
-          ],
-        ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MovieCard(movie: movie),
+          SizedBox(height: 20),
+          Text(
+            "Movie Images",
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          SizedBox(
+            height: 200,
+            child: ListView.separated(
+              separatorBuilder: (context, index) => SizedBox(width: 10),
+              itemCount: movie.images!.length,
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final image = movie.images![index];
+                return Card(
+                  elevation: 4.0,
+                  child: Image.network(
+                    image,
+                    width: 300,
+                    fit: BoxFit.cover,
+                  ),
+                );
+              },
+            ),
+          )
+        ],
       ),
     );
   }
