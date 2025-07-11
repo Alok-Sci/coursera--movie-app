@@ -1,3 +1,4 @@
+import 'package:coursera__movie_app/pages/movie_details_page.dart';
 import 'package:coursera__movie_app/providers/movie_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -102,7 +103,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: TextButton(
                           child: Text("Read More"),
                           onPressed: () {
-                            // navigate to detail screen
+                            // Navigate to detail screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return MovieDetailsPage();
+                                },
+                              ),
+                            );
                           },
                         ),
                       )
